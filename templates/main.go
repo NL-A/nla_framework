@@ -62,7 +62,10 @@ func ParseTemplates(p types.ProjectType) map[string]*template.Template {
 
 	// project
 	path := currentDir + "/project/"
-	readFiles("project_", "{{", "}}", path+"config.toml", path+"main.go", path+"go.mod", path+"go.sum", path+"docker-compose.yml", path+"docker-compose.dev.yml", path+"restoreDump.sh", path+"deploy.ps1", path+"Dockerfile")
+	readFiles("project_", "{{", "}}", path+"config.toml", path+"main.go",
+		/* path+"go.mod", path+"go.sum", */
+		path+"docker-compose.yml", path+"docker-compose.dev.yml", path+"restoreDump.sh",
+		path+"deploy.ps1", path+"Dockerfile")
 	if p.IsBackupOnYandexDisk() {
 		readFiles("project_", "[[", "]]", path+"deployYandexBackup.ps1")
 	}
