@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"io"
+	"golang.org/x/mod/modfile"
 
 	"github.com/NL-A/nla_framework/utils"
 	"github.com/serenize/snaker"
@@ -442,7 +444,7 @@ func (p ProjectType) PrintJsRoles() string {
 func (p *ProjectType) FillLocalPath() string {
 	// для старого варианта, когда проект находится в директории GOPATH
 	if len(p.Config.LocalProjectPath) == 0 {
-		if _, err := os.Stat("../go.mod"); os.IsNotExist(err) {
+		if f, err := os.Open("go.mod"); os.IsNotExist(err) {
 			// путь к локальной директории
 			path, _ := filepath.Abs("./")
 			// находим gopath
@@ -461,10 +463,12 @@ func (p *ProjectType) FillLocalPath() string {
 			p.Config.LocalProjectPath = path
 		} else {
 			// для нового варианта, когда проект создается с модулями
-			path, _ := os.Getwd()
-			path = strings.Replace(path, string(os.PathSeparator), "/", -1)
-			arr := strings.Split(strings.TrimSuffix(path, "/projectTemplate"), "/")
-			p.Config.LocalProjectPath = arr[len(arr)-1] + "/src"
+			defer f.Close()
+			data, _ := io.ReadAll(f)
+			path := modfile.ModulePath(data)
+			// убираем из конца projectTemplate и добавляем src
+			path = strings.TrimSuffix(path, "/projectTemplate") + "/src"
+			p.Config.LocalProjectPath = path
 		}
 
 	}
