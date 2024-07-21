@@ -2,12 +2,13 @@ package templates
 
 import (
 	"fmt"
-	"github.com/iancoleman/strcase"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/serenize/snaker"
 	"log"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/iancoleman/strcase"
+	"github.com/serenize/snaker"
 )
 
 func docIsIntegrationProccess(p types.ProjectType, d *types.DocType) {

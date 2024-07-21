@@ -2,13 +2,14 @@ package tmplGenerateStep2
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"log"
 	"path"
 	"runtime"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
 )
 
 // шаблоны для сообщений о задачах, i18n и пр

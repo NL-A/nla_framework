@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/serenize/snaker"
-	"github.com/spf13/cast"
 	"log"
 	"strings"
+
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/serenize/snaker"
+	"github.com/spf13/cast"
 )
 
 func (d DocType) PrintListRowAvatar() string {

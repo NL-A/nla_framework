@@ -3,17 +3,18 @@ package tmplGenerateStep2
 import (
 	"bytes"
 	"fmt"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"io/ioutil"
 	"log"
 	"os"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
 )
 
 // шаблоны для сообщений о задачах
-func TasksTmpl(p types.ProjectType)  {
+func TasksTmpl(p types.ProjectType) {
 	distPath := fmt.Sprintf("%s/webClient/src/app/components/currentUser/tasks", p.DistPath)
 	// находим список файлов компонент в директории
 	files, err := ioutil.ReadDir(distPath + "/taskTemplates")

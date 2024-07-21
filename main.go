@@ -4,10 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/pepelazz/nla_framework/templates"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/spf13/cast"
 	"io/ioutil"
 	"log"
 	"os"
@@ -16,6 +12,11 @@ import (
 	"runtime"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/templates"
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/spf13/cast"
 	//"github.com/otiai10/copy"
 )
 
@@ -175,7 +176,7 @@ func copyFiles(p types.ProjectType, source, dist string, modifyFunc copyFileModi
 				}
 				// заменяем ссылки в go файлах
 				if strings.HasSuffix(info.Name(), ".go") {
-					file = []byte(strings.Replace(string(file), "github.com/pepelazz/nla_framework", p.Config.LocalProjectPath, -1))
+					file = []byte(strings.Replace(string(file), "github.com/NL-A/nla_framework", p.Config.LocalProjectPath, -1))
 				}
 				// изменение config.js
 				if strings.HasSuffix(path, "app"+string(os.PathSeparator)+"plugins"+string(os.PathSeparator)+"config.js") {

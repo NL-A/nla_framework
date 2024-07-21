@@ -2,17 +2,18 @@ package templates
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
 )
 
-func docIsRecursionProccess(p types.ProjectType, d *types.DocType)  {
+func docIsRecursionProccess(p types.ProjectType, d *types.DocType) {
 	sourcePath := fmt.Sprintf("%s/webClient/quasar_%v/doc/comp/recursiveChildList.vue", getCurrentDir(), p.GetQuasarVersion())
 	// проверяем возможность того, что путь к шаблону был переопределен внутри документа
 	if d.TemplatePathOverride != nil {
 		if tmpl, ok := d.TemplatePathOverride["recursiveChildList.vue"]; ok {
-			if len(tmpl.Source)> 0 {
+			if len(tmpl.Source) > 0 {
 				sourcePath = tmpl.Source
 			}
 		}

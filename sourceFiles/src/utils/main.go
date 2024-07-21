@@ -7,15 +7,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator"
-	"github.com/pepelazz/nla_framework/types"
 	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator"
 )
 
 const (

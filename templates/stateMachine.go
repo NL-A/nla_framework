@@ -1,9 +1,10 @@
 package templates
 
 import (
-	"github.com/pepelazz/nla_framework/utils"
-	t "github.com/pepelazz/nla_framework/types"
 	"text/template"
+
+	t "github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
 )
 
 func stateMachineReadTmplAction(funcMap template.FuncMap, path ...string) *template.Template {

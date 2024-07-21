@@ -3,14 +3,15 @@ package webServer
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/pepelazz/nla_framework/cacheUtil"
-	"github.com/pepelazz/nla_framework/pg"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/NL-A/nla_framework/cacheUtil"
+	"github.com/NL-A/nla_framework/pg"
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/gin-gonic/gin"
 )
 
 // проверка токена авторизации

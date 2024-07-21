@@ -2,9 +2,10 @@ package types
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
 	"log"
 	"strings"
+
+	"github.com/NL-A/nla_framework/utils"
 )
 
 const (

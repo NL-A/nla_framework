@@ -1,4 +1,4 @@
-module github.com/pepelazz/projectBlueprint/src
+module github.com/NL-A/projectBlueprint/src
 
 go 1.21.3
 

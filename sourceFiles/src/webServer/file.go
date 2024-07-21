@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/pepelazz/nla_framework/pg"
-	"github.com/pepelazz/nla_framework/utils"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/NL-A/nla_framework/pg"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/gin-gonic/gin"
 )
 
 const FILE_DIR = "../uploaded_files"

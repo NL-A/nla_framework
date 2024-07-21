@@ -2,10 +2,11 @@ package types
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/serenize/snaker"
 	"log"
 	"strings"
+
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/serenize/snaker"
 )
 
 // main.toml печать списка полей

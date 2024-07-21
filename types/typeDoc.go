@@ -3,11 +3,12 @@ package types
 import (
 	"errors"
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/serenize/snaker"
 	"log"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/serenize/snaker"
 )
 
 const (

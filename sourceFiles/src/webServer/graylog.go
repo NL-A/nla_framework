@@ -1,12 +1,13 @@
 package webServer
 
 import (
-	"github.com/gin-gonic/gin"
 	"fmt"
-	"github.com/pepelazz/nla_framework/graylog"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"net/http"
+
+	"github.com/NL-A/nla_framework/graylog"
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/gin-gonic/gin"
 )
 
 func logToGraylog(c *gin.Context) {

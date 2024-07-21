@@ -2,13 +2,14 @@ package types
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
 	"log"
 	"path"
 	"runtime"
 	"strconv"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/utils"
 )
 
 // создание поля title
@@ -361,15 +362,16 @@ func GetFldTag(name, nameRu string, rowCol [][]int, params ...string) (fld FldTy
 
 // GetFldLinkListWidget создание поля-виджета со связями многие-к-многим
 // пример с доп полями
-//t.GetFldLinkListWidget("user_department_link", [][]int{{2, 1}}, "col-8", map[string]interface{}{
-//		"tableDependRoute": "employee",
-//		"readonly": "!isAdmin",
-//		"flds": "[[" +
-//			"{name: 'position', label: 'должность', type: 'string', columnClass: 'col-6'}, " +
-//			"{name: 'is_boss', label: 'начальник', type: 'checkbox', columnClass: 'col-6'}" +
-//		"]]",
-//		"slotOtherFlds": "<q-item-label caption><q-badge v-if='slotProps.item.is_boss' label='начальник' class='q-mr-sm'/>  <span>{{slotProps.item.position}}</span></q-item-label>",
-//}),
+//
+//	t.GetFldLinkListWidget("user_department_link", [][]int{{2, 1}}, "col-8", map[string]interface{}{
+//			"tableDependRoute": "employee",
+//			"readonly": "!isAdmin",
+//			"flds": "[[" +
+//				"{name: 'position', label: 'должность', type: 'string', columnClass: 'col-6'}, " +
+//				"{name: 'is_boss', label: 'начальник', type: 'checkbox', columnClass: 'col-6'}" +
+//			"]]",
+//			"slotOtherFlds": "<q-item-label caption><q-badge v-if='slotProps.item.is_boss' label='начальник' class='q-mr-sm'/>  <span>{{slotProps.item.position}}</span></q-item-label>",
+//	}),
 func GetFldLinkListWidget(linkTable string, rowCol [][]int, classStr string, opts map[string]interface{}) (fld FldType) {
 	classStr = getDefaultClassStr(classStr)
 	return FldType{Type: FldTypeVueComposition, Vue: FldVue{RowCol: rowCol, Class: []string{classStr}, Composition: func(p ProjectType, d DocType, fld FldType) string {

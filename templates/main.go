@@ -5,9 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/iancoleman/strcase"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/nla_framework/utils"
 	"io/ioutil"
 	"log"
 	"os"
@@ -15,6 +12,10 @@ import (
 	"runtime"
 	"strings"
 	"text/template"
+
+	"github.com/NL-A/nla_framework/types"
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/iancoleman/strcase"
 )
 
 var project *types.ProjectType

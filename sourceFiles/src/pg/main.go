@@ -3,8 +3,9 @@ package pg
 import (
 	"database/sql"
 	"fmt"
-	"github.com/pepelazz/nla_framework/types"
-	"github.com/pepelazz/pg_generate"
+
+	"github.com/NL-A/nla_framework/types"
+	pgGenerate "github.com/pepelazz/pg_generate"
 )
 
 var Pg *sql.DB

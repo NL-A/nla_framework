@@ -2,13 +2,14 @@ package types
 
 import (
 	"fmt"
-	"github.com/pepelazz/nla_framework/utils"
-	"github.com/serenize/snaker"
 	"go/build"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/NL-A/nla_framework/utils"
+	"github.com/serenize/snaker"
 )
 
 type (
