@@ -33,3 +33,4 @@ func (u *User) IdString() string {
 func (u *User) GetRoleAsString() string {
 	return strings.Join(u.Role, "_")
 }
+
