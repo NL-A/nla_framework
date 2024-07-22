@@ -79,7 +79,7 @@
 </template>
 
 <script>
-    [[ .PrintVueImport "docItem" ]]
+[[ .PrintVueImport "docItem" ]]
     [[range .StateMachine.States]]
         [[- $state := . -]]
     import state_[[$state.Title]]_card from './comp/state_[[$state.Title]]_card'

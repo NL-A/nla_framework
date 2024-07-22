@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    [[ .PrintVueImport "docItem" ]]
+[[ .PrintVueImport "docItem" ]]
     export default {
         props: ['id', 'isOpenInDialog' [[- if .IsRecursion -]], 'parent_id'[[- end -]]],
         components: {[[- .PrintComponents "docItem" -]]},

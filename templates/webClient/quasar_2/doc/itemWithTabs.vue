@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    [[ .PrintVueImport "docItemWithTabs" ]]
+[[ .PrintVueImport "docItemWithTabs" ]]
     import queryString from 'query-string'
 
     export default {

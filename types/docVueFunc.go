@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 
 	"github.com/NL-A/nla_framework/utils"
@@ -150,6 +151,7 @@ func (d DocType) PrintVueImport(tmplName string) string {
 		}
 	}
 
+	sort.Strings(res)
 	return strings.Join(res, "\n")
 }
 
@@ -329,6 +331,7 @@ func (d DocType) PrintComponents(tmplName string) string {
 		res = append(res, "compRecursiveChildList")
 	}
 
+	sort.Strings(res)
 	return strings.Join(res, ", ")
 }
 
