@@ -2,8 +2,9 @@ package utils
 
 import (
 	"bytes"
-	"github.com/go-gomail/gomail"
 	"html/template"
+
+	"github.com/go-gomail/gomail"
 )
 
 func EmailSend(to, subject, emailBody string) error {
@@ -19,7 +20,7 @@ func EmailSend(to, subject, emailBody string) error {
 	return d.DialAndSend(m)
 }
 
-func EmailSendWithEmptySender(to, subject, emailBody string) error  {
+func EmailSendWithEmptySender(to, subject, emailBody string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("To", to)
 	m.SetAddressHeader("From", emailConfig.Sender, emailConfig.SenderName)
@@ -31,10 +32,10 @@ func EmailSendWithEmptySender(to, subject, emailBody string) error  {
 	return d.DialAndSend(m)
 }
 
-func EmailSendChangePassword(to, href string) error  {
+func EmailSendChangePassword(to, href string) error {
 	data := struct {
 		Name string
-		Url string
+		Url  string
 	}{emailConfig.SenderName, href}
 
 	t, err := template.New("letter").Parse(`
@@ -67,10 +68,10 @@ func EmailSendChangePassword(to, href string) error  {
 	return EmailSend(to, "Смена пароля", emailBody)
 }
 
-func EmailSendRegistrationConfirm(to, href string) error  {
+func EmailSendRegistrationConfirm(to, href string) error {
 	data := struct {
 		Name string
-		Url string
+		Url  string
 	}{emailConfig.SenderName, href}
 
 	t, err := template.New("letter").Parse(`
@@ -103,4 +104,3 @@ func EmailSendRegistrationConfirm(to, href string) error  {
 
 	return EmailSend(to, "Завершение процесса регистрации", emailBody)
 }
-

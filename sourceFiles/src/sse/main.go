@@ -1,6 +1,6 @@
 package sse
 
-func Init()  {
+func Init() {
 	brokerByUser = map[string]broker{}
 	//go func() {
 	//	cnt := 0

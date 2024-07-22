@@ -1,18 +1,19 @@
 package auth
 
 import (
-	"[[.Config.LocalProjectPath]]/pg"
-	"[[.Config.LocalProjectPath]]/types"
-	"[[.Config.LocalProjectPath]]/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/rs/xid"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"strings"
 	"time"
+
+	"[[.Config.LocalProjectPath]]/pg"
+	"[[.Config.LocalProjectPath]]/types"
+	"[[.Config.LocalProjectPath]]/utils"
+	"github.com/gin-gonic/gin"
+	"github.com/rs/xid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type (

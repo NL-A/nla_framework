@@ -3,11 +3,13 @@ package types
 import (
 	"fmt"
 	"go/build"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
-	"io"
+
 	"golang.org/x/mod/modfile"
 
 	"github.com/NL-A/nla_framework/utils"
@@ -413,7 +415,7 @@ func (p ProjectType) IsBackupOnYandexDisk() bool {
 func (p ProjectType) PrintGoJobList() string {
 	res := ""
 	if len(p.Go.JobList) > 0 {
-		return strings.Join(p.Go.JobList, "\n")
+		return strings.Join(p.Go.JobList, "\n	")
 	}
 	return res
 }
@@ -475,6 +477,17 @@ func (p *ProjectType) FillLocalPath() string {
 	return p.Config.LocalProjectPath
 }
 
+func sortedKeys(m map[string]DocSqlMethod) []string {
+	keys := make([]string, len(m))
+	i := 0
+	for k := range m {
+		keys[i] = k
+		i++
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 func (p ProjectType) PrintApiCallPgFuncMethods() string {
 	res := ""
 	printPgMethod := func(m DocSqlMethod) {
@@ -484,18 +497,26 @@ func (p ProjectType) PrintApiCallPgFuncMethods() string {
 		}
 		res = fmt.Sprintf("%s\n\t\tPgMethod{\"%s\", []string{%s}, nil, BeforeHookAddUserId},", res, m.Name, roles)
 	}
+
+	methods := map[string]DocSqlMethod{}
+
 	if project.Sql.Methods != nil {
 		for _, v := range project.Sql.Methods {
 			for _, m := range v {
-				printPgMethod(m)
+				methods[m.Name] = m
 			}
 		}
 	}
 	for _, d := range project.Docs {
 		for _, m := range d.Sql.Methods {
-			printPgMethod(*m)
+			methods[m.Name] = *m
 		}
 	}
+
+	for _, k := range sortedKeys(methods) {
+		printPgMethod(methods[k])
+	}
+
 	return res
 }
 

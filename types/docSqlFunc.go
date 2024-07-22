@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 
 	"github.com/NL-A/nla_framework/utils"
@@ -131,6 +132,7 @@ func (d DocType) PrintSqlModelMethods() (res string) {
 	}
 
 	if len(arr) > 0 {
+		sort.Strings(arr)
 		res = fmt.Sprintf("methods = [\n%s\n]", strings.Join(arr, ",\n"))
 	}
 	return

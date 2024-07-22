@@ -40,7 +40,7 @@ var (
 		PgMethod{"user_get_by_id_for_ui", []string{}, nil, BeforeHookAddUserId},
 		PgMethod{"current_user_update", []string{}, nil, BeforeHookAddUserId},
 		PgMethod{"current_user_get_auth_providers", []string{}, nil, BeforeHookAddUserId},
-		[[.PrintApiCallPgFuncMethods]]
+[[.PrintApiCallPgFuncMethods]]
 	}
 )
 
@@ -212,7 +212,7 @@ func BeforeHookAddUserId(c *gin.Context, p interface{}) error {
 	return nil
 }
 
-func processPgErrorMsg (err error) string  {
+func processPgErrorMsg (err error) string {
 [[.PrintProcessPgErrorMsgs]]
 	return err.Error()
 }

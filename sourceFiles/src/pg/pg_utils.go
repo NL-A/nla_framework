@@ -1,11 +1,12 @@
 package pg
 
 import (
-	"fmt"
-	"github.com/tidwall/gjson"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
+
+	"github.com/tidwall/gjson"
 )
 
 func CallPgSelectToJson(queryStr string, res interface{}) (err error) {
@@ -25,7 +26,7 @@ func CallPgSelectToJson(queryStr string, res interface{}) (err error) {
 	return nil
 }
 
-func CallPgFuncWithStruct(funcName string, jsonStruct, res interface{}) error  {
+func CallPgFuncWithStruct(funcName string, jsonStruct, res interface{}) error {
 	jsonStr, err := json.Marshal(jsonStruct)
 	if err != nil {
 		return err

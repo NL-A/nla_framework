@@ -3,36 +3,36 @@ package main
 import (
 	"encoding/gob"
 	"flag"
-	{{ if .Config.Graylog.Host -}}
+{{if .Config.Graylog.Host}}
 	"{{.Config.LocalProjectPath}}/graylog"
-	{{end -}}
+{{- end}}
 	"{{.Config.LocalProjectPath}}/jobs"
 	"{{.Config.LocalProjectPath}}/pg"
 	"{{.Config.LocalProjectPath}}/types"
 	"{{.Config.LocalProjectPath}}/utils"
 	"{{.Config.LocalProjectPath}}/webServer"
 	"{{.Config.LocalProjectPath}}/sse"
-	{{if .IsBitrixIntegration -}}
+{{if .IsBitrixIntegration -}}
 	"{{.Config.LocalProjectPath}}/bitrix"
-	{{- end}}
-	{{if .IsTelegramIntegration -}}
+{{- end}}
+{{if .IsTelegramIntegration -}}
 	"{{.Config.LocalProjectPath}}/tgBot"
-	{{- end}}
-	{{if .IsOdataIntegration -}}
+{{- end}}
+{{if .IsOdataIntegration -}}
 	"{{.Config.LocalProjectPath}}/odata"
-	{{- end}}
+{{- end}}
 	"math/rand"
 	"os"
 	"time"
-    {{- if .Config.Graylog.Host}}
+{{- if .Config.Graylog.Host}}
 	"fmt"
-    {{- end}}
+{{- end}}
 	{{- range.Go.Routes.ImportsMainGo}}
-    "{{.}}"
-    {{- end}}
-    {{- range .Go.MainGoImports}}
-        "{{.}}"
-    {{- end}}
+	"{{.}}"
+{{- end}}
+{{- range .Go.MainGoImports}}
+	"{{.}}"
+{{- end}}
 )
 
 var (
@@ -47,13 +47,13 @@ func main() {
 	pgPort := flag.String("pg_port", "", "an string")
 	pgPassword := flag.String("pg_pass", "", "an string")
 	dbName := flag.String("dbname", "", "an string")
-	{{if .IsTelegramIntegration -}}
+{{if .IsTelegramIntegration -}}
 	tgBotName := flag.String("telegram_bot_name", "", "an string")
 	tgBotToken:= flag.String("telegram_bot_token", "", "an string")
-	{{- end}}
-    {{- range.Go.Flags}}
-    {{.Desc}}
-    {{- end}}
+{{- end}}
+{{- range.Go.Flags}}
+	{{.Desc}}
+{{- end}}
 	flag.Parse()
 
 	if *isDev {
@@ -68,7 +68,7 @@ func main() {
 		if len(*dbName) > 0 {
 			_ = os.Setenv("PG_DBNAME", *dbName)
 		}
-		{{if .IsTelegramIntegration -}}
+{{if .IsTelegramIntegration -}}
 		if len(*tgBotName) > 0 {
 			_ = os.Setenv("TELEGRAM_BOT_NAME", *tgBotName)
 		} else {
@@ -77,35 +77,34 @@ func main() {
 		if len(*tgBotToken) > 0 {
 			_ = os.Setenv("TELEGRAM_BOT_TOKEN", *tgBotToken)
 		}
-		{{- end}}
+{{- end}}
 		_ = os.Setenv("IS_DEVELOPMENT", "true")
 	}
 
-    {{- range.Go.Flags}}
-    {{.ProcessBlock}}
-    {{- end}}
-
+{{range.Go.Flags -}}
+	{{.ProcessBlock}}
+{{- end}}
 	// read config.toml
 	config, err = types.ReadConfigFile("./config.toml")
 	utils.CheckErr(err, "Read config")
 
-    if os.Getenv("IS_DEVELOPMENT") != "true" {
-        time.Sleep(5 * time.Second)
-    }
+	if os.Getenv("IS_DEVELOPMENT") != "true" {
+		time.Sleep(5 * time.Second)
+	}
 
 	// postgres
 	err = pg.StartPostgres(config.Postgres)
 	utils.CheckErr(err, "StartPostgres")
 
-	{{ if .Config.Graylog.Host -}}
+{{ if .Config.Graylog.Host }}
 	// подключаемся к серверу сбора логов
 	err = graylog.Init(config.Graylog, func() map[string]string {
-        return {{ if .Config.Graylog.Attrs -}}{{.Config.Graylog.Attrs}}{{else}}nil{{end}}
-    }())
+		return {{ if .Config.Graylog.Attrs -}}{{.Config.Graylog.Attrs}}{{else}}nil{{end}}
+	}())
 	if err != nil {
-	    fmt.Printf("Connect to GraylogConfig %s\n", err)
+		fmt.Printf("Connect to GraylogConfig %s\n", err)
 	}
-	{{- end}}
+{{- end}}
 
 	// инициализируем генератор случайных чисел
 	rand.Seed(time.Now().UnixNano())
@@ -117,24 +116,24 @@ func main() {
 	// передаем часть конфига в utils
 	utils.SetWebServerConfig(config.WebServer)
 	utils.SetEmailConfig(config.Email)
-	{{if .IsBitrixIntegration -}}
+{{if .IsBitrixIntegration -}}
 	bitrix.SetBitrixConfig(config.Bitrix)
-	{{- end}}
-	{{if .IsOdataIntegration -}}
+{{- end}}
+{{if .IsOdataIntegration -}}
 	odata.SetOdataConfig(config.Odata)
-	{{- end}}
+{{- end}}
 
 	//go pg.GenerateFakeUsers(100)
-	{{if .IsTelegramIntegration -}}
+{{if .IsTelegramIntegration -}}
 	go tgBot.Start(*config)
-	{{- end}}
+{{- end}}
 
 	// инициализируем брокера для обработки подключений по SSE
 	sse.Init()
 
-    {{- range.Go.HooksBeforeStartWebServer}}
-    {{.}}
-    {{- end}}
+{{range.Go.HooksBeforeStartWebServer -}}
+	{{.}}
+{{end}}
 
 	webServer.StartWebServer(*config)
 }
