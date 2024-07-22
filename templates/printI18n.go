@@ -81,7 +81,18 @@ func FillDocI18n(p types.ProjectType) {
 	}
 }
 
-func sortedKeys(m map[string]string) []string {
+func sortedStrings(m map[string]string) []string {
+	keys := make([]string, len(m))
+	i := 0
+	for k := range m {
+		keys[i] = k
+		i++
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+func sortedLangStrings(m map[string]map[string]string) []string {
 	keys := make([]string, len(m))
 	i := 0
 	for k := range m {
@@ -128,14 +139,10 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 	resStr = resStr + "\nexport default {"
 	// печатаем сообщения на уровне проекта
 	if _, ok := p.I18n.Data[lang]; ok {
-		for m, list := range p.I18n.Data[lang] {
+		for _, m := range sortedLangStrings(p.I18n.Data[lang]) {
 			resStr = fmt.Sprintf("%s\n\t%s: {", resStr, m)
-			messages := map[string]string{}
-			for k, v := range list {
-				messages[k] = v
-			}
-			for _, k := range sortedKeys(messages) {
-				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, messages[k])
+			for _, k := range sortedStrings(p.I18n.Data[lang][m]) {
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, p.I18n.Data[lang][m][k])
 			}
 			resStr = resStr + "\n\t},"
 		}
@@ -159,12 +166,8 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 		resStr := ""
 		resStr = resStr + "\nexport default {"
 		if _, ok := doc.I18n[lang]; ok {
-			messages := map[string]string{}
-			for k, v := range doc.I18n[lang] {
-				messages[k] = v
-			}
-			for _, k := range sortedKeys(messages) {
-				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, messages[k])
+			for _, k := range sortedStrings(doc.I18n[lang]) {
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, doc.I18n[lang][k])
 			}
 		}
 		resStr = resStr + "\n}\n"
