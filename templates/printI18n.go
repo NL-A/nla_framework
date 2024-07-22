@@ -117,11 +117,11 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 	// печатаем сообщения на уровне проекта
 	if _, ok := p.I18n.Data[lang]; ok {
 		for m, list := range p.I18n.Data[lang] {
-			resStr = fmt.Sprintf("%s\n	%s: {", resStr, m)
+			resStr = fmt.Sprintf("%s\n\t%s: {", resStr, m)
 			for k, v := range list {
-				resStr = fmt.Sprintf("%s\n 		%s: '%s',", resStr, k, v)
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, v)
 			}
-			resStr = resStr + "\n	},"
+			resStr = resStr + "\n\t},"
 		}
 	}
 	// ссылки на документы
@@ -144,7 +144,7 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 		resStr = resStr + "\nexport default {"
 		if _, ok := doc.I18n[lang]; ok {
 			for k, v := range doc.I18n[lang] {
-				resStr = fmt.Sprintf("%s\n 		%s: '%s',", resStr, k, v)
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, v)
 			}
 		}
 		resStr = resStr + "\n}\n"
