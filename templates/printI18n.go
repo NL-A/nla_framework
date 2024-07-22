@@ -2,6 +2,7 @@ package templates
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"text/template"
 
@@ -80,6 +81,17 @@ func FillDocI18n(p types.ProjectType) {
 	}
 }
 
+func sortedKeys(m map[string]string) []string {
+	keys := make([]string, len(m))
+	i := 0
+	for k := range m {
+		keys[i] = k
+		i++
+	}
+	sort.Strings(keys)
+	return keys
+}
+
 // ПЕЧАТЬ i18n/index.js
 func PrintI18nJs(p types.ProjectType) {
 	resStr := ""
@@ -118,8 +130,12 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 	if _, ok := p.I18n.Data[lang]; ok {
 		for m, list := range p.I18n.Data[lang] {
 			resStr = fmt.Sprintf("%s\n\t%s: {", resStr, m)
+			messages := map[string]string{}
 			for k, v := range list {
-				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, v)
+				messages[k] = v
+			}
+			for _, k := range sortedKeys(messages) {
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, messages[k])
 			}
 			resStr = resStr + "\n\t},"
 		}
@@ -143,8 +159,12 @@ func PrintDocI18nJs(p types.ProjectType, lang string) {
 		resStr := ""
 		resStr = resStr + "\nexport default {"
 		if _, ok := doc.I18n[lang]; ok {
+			messages := map[string]string{}
 			for k, v := range doc.I18n[lang] {
-				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, v)
+				messages[k] = v
+			}
+			for _, k := range sortedKeys(messages) {
+				resStr = fmt.Sprintf("%s\n\t\t%s: '%s',", resStr, k, messages[k])
 			}
 		}
 		resStr = resStr + "\n}\n"
