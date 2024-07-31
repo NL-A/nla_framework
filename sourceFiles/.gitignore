@@ -1,4 +1,5 @@
 .idea/
+src/.vscode/
 *.iml
 
 image/*
@@ -7,5 +8,6 @@ postgres/volume
 postgres/logs
 src/webClient/node_modules
 src/app
+src/src
 src/boltDb
-
+src/webClient/dist/
